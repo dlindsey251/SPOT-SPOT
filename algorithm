@@ -1,0 +1,34 @@
+% PARK_APP.m (ver 1.2)
+% DESCRIPTION: Performs image processing algorithm to determine if a
+% parking space is occupied or not.
+% DATE BEGAN: February 19, 2019
+% DATE MODIFIED: March 4, 2019
+% 1.0 INTIALIZATION
+clear
+PAfile = 'ParkApp_AAMU_Lot1.mat'; % Parking lot file name
+load(PAfile);
+IM0 = imread(PA.IMfilename); % Read image file
+eTHRESH = 5.0;
+% 2.0 IMPLEMENT ALGORITHM
+nf = 0;
+for nspots = 1:PA.Nspots
+IMp =
+IM0(PA.py(nspots):PA.py(nspots)+PA.dIMy-1,PA.px(nspots):PA.px(nspots)+PA.dIMx-1,:);
+eIM1(nspots) = abs((IMAVG(IMp)-IMAVG(PA.IMp0)));
+eIM2(nspots) = IMERROR(IMp,PA.IMp0);
+eIMS(nspots) = eIM1(nspots)+eIM2(nspots);
+if eIMS(nspots) > eTHRESH
+nf = nf + 1;
+ops(nf) = nspots;
+end
+end
+figure(3)
+subplot(3,1,1)
+bar(eIM1)
+title('Average Error')
+subplot(3,1,2)
+bar(eIM2)
+title('Pixel-by-Pixel Error')
+subplot(3,1,3)
+bar(eIMS)
+title('Sum of Errors')
