@@ -1,0 +1,13 @@
+function eIM = IMERROR(IM1,IM2)
+dIMx = length(IM1(1,:,1));
+dIMy = length(IM1(:,1,1));
+eIM = 0.0;
+for ny = 1:dIMy
+for nx = 1:dIMx
+for nc = 1:3
+eIM = eIM + double(abs(IM1(ny,nx,nc)-IM2(ny,nx,nc)));
+end
+end
+end
+eIM = eIM/(3*dIMx*dIMy);
+end
